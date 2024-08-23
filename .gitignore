@@ -1,0 +1,34 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Build directories
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+
+# Coverage directory
+coverage/
+
+# Ignore package-lock.json
+package-lock.json
