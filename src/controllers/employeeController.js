@@ -12,11 +12,20 @@ exports.getEmployees = async (req, res) => {
 exports.createEmployee = async (req, res) => {
   const { emp_name, age, location, email } = req.body;
   const newEmployee = new Employee({ emp_name, age, location, email });
-
   try {
     const savedEmployee = await newEmployee.save();
     res.status(201).json(savedEmployee);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+};
+
+exports.deleteEmployee = async (req, res) => {
+  const employeeId = req.query.id;
+  try {
+    await Employee.findByIdAndDelete(employeeId);
+    res.json({ message: "Employee deleted" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

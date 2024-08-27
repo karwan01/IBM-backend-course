@@ -1,24 +1,35 @@
+require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
 const employeeRoutes = require("./routes/employeeRoutes");
-const logger = require("./config/logger");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+// const logger = require("./config/logger");
 
 const app = express();
 
-// Connect to database
+// Connect to the database
 connectDB();
 
-// Middleware to parse JSON
-app.use(bodyParser.json());
+// Middleware to parse JSON requests
+app.use("*", bodyParser.json());
 
-// Routes
+// Enable CORS for all routes
+app.use(cors());
+
+// Register routes with the /api/employees prefix
 app.use("/api/employees", employeeRoutes);
+
+// Default route for base URL
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  logger.error(err.message);
+  // logger.error(err.message);
   res.status(500).send("Server Error");
 });
 
-module.exports = app;
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
